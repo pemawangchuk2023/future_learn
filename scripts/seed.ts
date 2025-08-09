@@ -11,6 +11,7 @@ export async function main() {
 				{ name: "Web Development" },
 				{ name: "Accounting" },
 			],
+			skipDuplicates: true,
 		});
 	} catch (error) {
 		console.log("Error seeding the database", error);

@@ -10,7 +10,6 @@ import {
 import { cn } from "@/lib/utils";
 import { Grip, PencilIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { on } from "events";
 
 interface ChaptersListProps {
 	items: Chapter[];
@@ -70,9 +69,8 @@ const ChapterList = ({ items, onReorder, onEdit }: ChaptersListProps) => {
 										{...provided.draggableProps}
 										{...provided.dragHandleProps}
 										className={cn(
-											"flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm p-2 cursor-pointer",
-											chapter.isPublished &&
-												"bg-sky-100 border-sky-200 text-sky-700"
+											"flex items-center gap-x-2 text-foreground rounded-md mb-4 text-sm p-2 cursor-pointer",
+											chapter.isPublished && "text-foreground"
 										)}
 										onClick={() => onEdit(chapter.id)}
 									>
@@ -82,14 +80,14 @@ const ChapterList = ({ items, onReorder, onEdit }: ChaptersListProps) => {
 											{chapter.isFree && <Badge>Free</Badge>}
 											<Badge
 												className={cn(
-													"bg-slate-500",
-													chapter.isPublished && "bg-sky-700"
+													"text-white",
+													chapter.isPublished ? "bg-emerald-500" : "bg-gray-500"
 												)}
 											>
 												{chapter.isPublished ? "Published" : "Draft"}
 											</Badge>
 											<PencilIcon
-												className='h-5 w-5 cursor-pointer text-slate-500 hover:text-slate-700 transition-colors duration-200'
+												className='h-5 w-5 cursor-pointer text-foreground'
 												onClick={() => onEdit(chapter.id)}
 											/>
 										</div>

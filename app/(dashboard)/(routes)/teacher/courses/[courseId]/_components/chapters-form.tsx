@@ -50,7 +50,7 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await axios.post(`/api/courses/${courseId}/chapters`, values);
-			toast.success("Chapter created successfully");
+			toast.success("Chapter title created successfully");
 			toggleCreate();
 			router.refresh();
 			form.reset();
@@ -91,16 +91,10 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
 			<div className='px-8 py-5'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-4'>
-						<div className='p-3 rounded-xl shadow border'>
-							<FileText className='h-5 w-5 text-blue-600' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-xl text-foreground'>
-								Course Chapters
+							<h3 className='font-extrabold text-yellow-500 text-xl'>
+								5. Add the Chapters of Your Course
 							</h3>
-							<p className='text-xs text-slate-500'>
-								Describe what students will learn
-							</p>
 						</div>
 					</div>
 					<Button
@@ -139,8 +133,8 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
 								name='title'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className='text-foreground font-semibold'>
-											Chapter Title
+										<FormLabel className='text-foreground font-semibold mb-2'>
+											Add the Title of Your Chapter
 										</FormLabel>
 										<FormControl>
 											<Input
@@ -159,7 +153,7 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='text-foreground rounded-xl px-6'
+									className='text-foreground rounded-none px-6 cursor-pointer'
 									variant='outline'
 								>
 									<Check className='h-4 w-4 mr-1' />
@@ -186,7 +180,7 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
 					</div>
 				)}
 				{!isCreating && initialData.chapters.length > 1 && (
-					<p className='text-xs text-blue-500/80 mt-6 italic'>
+					<p className='text-xs text-red-500 capitalize mt-6 font-extrabold'>
 						Drag and drop to reorder chapters
 					</p>
 				)}

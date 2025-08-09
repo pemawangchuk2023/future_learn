@@ -58,29 +58,22 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 	};
 
 	return (
-		<div className='group rounded-xl border overflow-hidden'>
+		<div className='group rounded-xl overflow-hidden'>
 			{/* Header */}
 			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2'>
-							<FileText className='h-4 w-4 text-slate-foreground' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-foreground'>
-								Course Description
+							<h3 className='font-extrabold text-yellow-500 text-xl'>
+								2. The Description of Your Course
 							</h3>
-							<p className='text-sm text-foreground'>
-								Describe what students will learn
-							</p>
 						</div>
 					</div>
 					<Button
-						variant='ghost'
+						variant='outline'
 						size='sm'
 						onClick={toggleEdit}
 						disabled={isSubmitting}
-						className='hover:bg-white/80 transition-colors'
 					>
 						{isEditing ? (
 							<>
@@ -103,18 +96,13 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 					<div className='space-y-2'>
 						<div
 							className={cn(
-								"text-foreground leading-relaxed",
-								!initialData.description && "text-slate-400 italic"
+								"text-foreground font-extrabold text-[20px]",
+								!initialData.description && "text-foreground italic"
 							)}
 						>
 							{initialData.description ||
 								"No description provided yet. Click edit to add a compelling description for your course."}
 						</div>
-						{initialData.description && (
-							<p className='text-sm text-foreground'>
-								Click edit to modify your course description
-							</p>
-						)}
 					</div>
 				)}
 
@@ -132,7 +120,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 										<FormControl>
 											<Textarea
 												disabled={isSubmitting}
-												placeholder='e.g. "This comprehensive course will teach you advanced React concepts including hooks, context, performance optimization, and modern patterns..."'
+												placeholder='e.g. "This comprehensive course will teach you advanced React..."'
 												className='border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 min-h-[120px] resize-none'
 												{...field}
 											/>
@@ -146,10 +134,11 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='bg-blue-600 hover:bg-blue-700 text-foreground'
+									variant='outline'
+									className='cursor-pointer rounded-none border-2 border-amber-200'
 								>
 									<Check className='h-4 w-4 mr-2' />
-									Save Changes
+									Save The Description
 								</Button>
 							</div>
 						</form>

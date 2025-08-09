@@ -63,19 +63,13 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 	};
 
 	return (
-		<div className='group bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-200 overflow-hidden'>
+		<div className='group overflow-hidden'>
 			{/* Header */}
-			<div className='bg-gradient-to-r from-slate-50 to-slate-100/50 px-6 py-4 border-b border-slate-200'>
+			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2 bg-white rounded-lg shadow-sm'>
-							<ImageIcon className='h-4 w-4 text-slate-600' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-slate-900'>
-								Course Attachment
-							</h3>
-							<p className='text-xs text-slate-500'>Upload an Attachment</p>
+							<p className='text-xs text-foreground'>Upload an Attachment</p>
 						</div>
 					</div>
 					<Button
@@ -83,7 +77,6 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 						size='sm'
 						onClick={toggleEdit}
 						disabled={isSubmitting}
-						className='hover:bg-white/80 transition-colors'
 					>
 						{isEditing ? (
 							<>
@@ -104,7 +97,7 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 				{!isEditing && (
 					<>
 						{initialData.attachments.length === 0 ? (
-							<p className='text-sm mt-2 text-slate-500 italic'>
+							<p className='text-sm mt-2 text-foreground italic'>
 								No attachments yet
 							</p>
 						) : (
@@ -112,9 +105,9 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 								{initialData.attachments.map((attachment) => (
 									<div
 										key={attachment.id}
-										className='flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200'
+										className='flex items-center justify-between p-3'
 									>
-										<p className='text-sm text-slate-700 truncate'>
+										<p className='text-sm text-foreground'>
 											{attachment.name || attachment.url}
 										</p>
 										<Button
@@ -142,7 +135,7 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 								}
 							}}
 						/>
-						<div className='text-xs text-foreground bg-slate-50 p-3 rounded-lg border border-slate-200'>
+						<div className='text-xs text-foreground p-3'>
 							<span className='font-medium'>
 								Add anything that your students might need to complete this
 								course

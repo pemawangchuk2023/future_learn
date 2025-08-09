@@ -12,10 +12,9 @@ import {
 	FormDescription,
 	FormField,
 	FormItem,
-	FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { PencilIcon, FileText, Check, X } from "lucide-react";
+import { PencilIcon, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Chapter } from "@/lib/generated/prisma";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -71,11 +70,10 @@ const ChapterAccessForm = ({
 			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2 rounded-lg shadow-sm'>
-							<FileText className='h-4 w-4 text-foreground' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-foreground'>Chapter Access</h3>
+							<h3 className='font-extrabold text-xl text-yellow-500'>
+								3. Provide Chapter Access
+							</h3>
 						</div>
 					</div>
 					<Button
@@ -142,7 +140,8 @@ const ChapterAccessForm = ({
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='bg-blue-600 hover:bg-blue-700 text-foreground'
+									variant='outline'
+									className='cursor-pointer rounded-none border-2 border-amber-200'
 								>
 									<Check className='h-4 w-4 mr-2' />
 									Save Changes

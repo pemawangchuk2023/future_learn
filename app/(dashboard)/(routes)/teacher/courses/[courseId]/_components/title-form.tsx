@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { PencilIcon, Type, Check, X } from "lucide-react";
+import { PencilIcon, Check, X } from "lucide-react";
 
 const formSchema = z.object({
 	title: z.string().min(1, {
@@ -56,16 +56,15 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 	};
 
 	return (
-		<div className='group rounded-xl shadow-sm border hover:shadow-md transition-all duration-200 overflow-hidden'>
+		<div className='group overflow-hidden'>
 			{/* Header */}
 			<div className='px-6 py-4 border-b'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
 						<div>
-							<h3 className='font-semibold text-foreground'>Course Title</h3>
-							<p className='text-xs text-foreground capitalize'>
-								Give your course a compelling title
-							</p>
+							<h3 className='font-extrabold text-xl text-yellow-500'>
+								1. The Title of a Course
+							</h3>
 						</div>
 					</div>
 					<Button
@@ -96,9 +95,6 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 						<p className='text-foreground font-medium text-xl'>
 							{initialData.title}
 						</p>
-						<p className='text-xs text-foreground capitalize'>
-							Click edit to modify your course title
-						</p>
 					</div>
 				)}
 
@@ -110,8 +106,8 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 								name='title'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className='text-foreground font-medium'>
-											Course Title
+										<FormLabel className='text-green-500 font-extrabold text-xl'>
+											Enter Course Title
 										</FormLabel>
 										<FormControl>
 											<Input
@@ -130,10 +126,11 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='bg-blue-600 hover:bg-blue-700 text-foreground'
+									variant='outline'
+									className='cursor-pointer rounded-none border-2 border-amber-200'
 								>
 									<Check className='h-4 w-4 mr-2' />
-									Save Changes
+									Save The Title
 								</Button>
 							</div>
 						</form>

@@ -56,12 +56,18 @@ const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
 				disabled={disabled || isLoading}
 				variant='outline'
 				size='sm'
+				className='rounded-none cursor-pointer'
 			>
 				{isPublished ? "Unpublished" : "Publish"}
 			</Button>
 
 			<ConfirmModal onConfirm={onDelete}>
-				<Button size='sm' disabled={isLoading} variant='outline'>
+				<Button
+					size='sm'
+					disabled={isLoading}
+					variant='destructive'
+					className='cursor-pointer'
+				>
 					<Trash2Icon className='h-4 w-4' />
 				</Button>
 			</ConfirmModal>

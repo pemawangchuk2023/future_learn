@@ -46,7 +46,7 @@ const ChapterVideoForm = ({
 				`/api/courses/${courseId}/chapters/${chapterId}`,
 				values
 			);
-			toast("The video has been submitted successfully");
+			toast("The video has been uploaded successfully");
 			toggleEdit();
 			router.refresh();
 		} catch {
@@ -60,15 +60,9 @@ const ChapterVideoForm = ({
 			<div className=' px-6 py-4 '>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2'>
-							<ImageIcon className='h-4 w-4 text-foreground' />
-						</div>
-						<div>
-							<h3 className='font-semibold text-foreground'>Chapter Video</h3>
-							<p className='text-sm text-foreground'>
-								Upload a compelling video for your course
-							</p>
-						</div>
+						<h3 className='font-extrabold text-yellow-500 text-xl'>
+							4.Chapter Video
+						</h3>
 					</div>
 					<Button
 						variant='ghost'

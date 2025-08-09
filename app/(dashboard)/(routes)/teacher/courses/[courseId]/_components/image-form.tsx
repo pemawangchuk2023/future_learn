@@ -6,7 +6,6 @@ import { z } from "zod";
 import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { PencilIcon, ImageIcon, X, PlusIcon } from "lucide-react";
 import type { Course } from "@/lib/generated/prisma/wasm";
 import Image from "next/image";
@@ -24,8 +23,11 @@ interface ImageFormProps {
 }
 
 const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
-	const router = useRouter();
 	const [isEditing, setIsEditing] = useState(false);
+	const [localImageUrl, setLocalImageUrl] = useState(
+		initialData.imageUrl || ""
+	);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -39,12 +41,15 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			await axios.patch(`/api/courses/${courseId}`, values);
+			const response = await axios.patch(`/api/courses/${courseId}`, values);
+			console.log("PATCH response:", response.data);
 			toast("The image has been submitted successfully");
+			setLocalImageUrl(values.imageUrl);
+			form.setValue("imageUrl", values.imageUrl);
 			toggleEdit();
-			router.refresh();
-		} catch {
-			toast("Something went wrong while updating the description of a course.");
+		} catch (error) {
+			console.error("Error updating course image:", error);
+			toast("Something went wrong while updating the course image.");
 		}
 	};
 
@@ -54,14 +59,10 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2 rounded-lg shadow-sm'>
-							<ImageIcon className='h-4 w-4 text-foreground' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-foreground'>Course Image</h3>
-							<p className='text-sm text-foreground'>
-								Upload a compelling image for your course
-							</p>
+							<h3 className='font-extrabold text-yellow-500 text-xl'>
+								3.Upload the Image of Your Course
+							</h3>
 						</div>
 					</div>
 					<Button
@@ -69,7 +70,7 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 						size='sm'
 						onClick={toggleEdit}
 						disabled={isSubmitting}
-						className='hover:bg-white/80 transition-colors'
+						className='cursor-pointer'
 					>
 						{isEditing && (
 							<>
@@ -77,13 +78,13 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 								Cancel
 							</>
 						)}
-						{!isEditing && !initialData.imageUrl && (
+						{!isEditing && !localImageUrl && (
 							<>
 								<PlusIcon className='h-4 w-4 mr-2' />
 								Add an Image
 							</>
 						)}
-						{!isEditing && initialData.imageUrl && (
+						{!isEditing && localImageUrl && (
 							<>
 								<PencilIcon className='h-4 w-4 mr-2' />
 								Edit Image
@@ -95,7 +96,7 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 			{/* Content */}
 			<div className='p-6'>
 				{!isEditing &&
-					(!initialData.imageUrl ? (
+					(!localImageUrl ? (
 						<div className='flex flex-col items-center justify-center h-60'>
 							<div className='p-4 mb-4'>
 								<ImageIcon className='h-8 w-8 text-foreground' />
@@ -103,28 +104,16 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 							<h4 className='text-lg font-medium text-foreground mb-2'>
 								No image uploaded
 							</h4>
-							<p className='text-sm text-foreground text-center max-w-sm'>
-								Add an eye-catching image to make your course more appealing to
-								students
-							</p>
 						</div>
 					) : (
 						<div className='space-y-3'>
 							<div className='relative aspect-video mt-2'>
-								<Image
-									src={initialData.imageUrl}
-									alt='Course image'
-									fill
-									className='object-cover rounded-lg border border-slate-200'
-								/>
+								<Image src={localImageUrl} alt='Course image' fill />
 							</div>
-							<p className='text-xs text-foreground'>
-								Click edit to change your course image
-							</p>
 						</div>
 					))}
 				{isEditing && (
-					<div className='space-y-4'>
+					<div className='space-y-4 text-foreground'>
 						<FileUpload
 							endPoint='courseImage'
 							onChange={(url) => {

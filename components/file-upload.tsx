@@ -13,6 +13,7 @@ const FileUpload = ({ onChange, endPoint }: FileUploadProps) => {
 		<UploadDropzone
 			endpoint={endPoint}
 			onClientUploadComplete={(res) => {
+				console.log("Upload result:", res);
 				onChange(res?.[0]?.ufsUrl);
 			}}
 			onUploadError={(error: Error) => {

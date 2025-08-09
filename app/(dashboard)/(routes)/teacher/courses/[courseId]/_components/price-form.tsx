@@ -15,14 +15,14 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { PencilIcon, FileText, Check, X } from "lucide-react";
+import { PencilIcon, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Course } from "@/lib/generated/prisma";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "../../../../../../../lib/format";
 
 const formSchema = z.object({
-	price: z.coerce.number().min(1, { message: "Price must be at least 1" }),
+	price: z.number().min(1, { message: "Price must be at least 1" }),
 });
 
 interface PriceFormProps {
@@ -57,19 +57,15 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 	};
 
 	return (
-		<div className='group bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-200 overflow-hidden'>
+		<div className='group overflow-hidden'>
 			{/* Header */}
-			<div className='bg-gradient-to-r from-slate-50 to-slate-100/50 px-6 py-4 border-b border-slate-200'>
+			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2 bg-white rounded-lg shadow-sm'>
-							<FileText className='h-4 w-4 text-slate-600' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-slate-900'>Price</h3>
-							<p className='text-xs text-slate-500'>
-								Describe the value of your price
-							</p>
+							<h3 className='font-extrabold text-yellow-500 text-xl mb-2'>
+								6. Fix the Price of Your Course
+							</h3>
 						</div>
 					</div>
 					<Button
@@ -77,7 +73,6 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 						size='sm'
 						onClick={toggleEdit}
 						disabled={isSubmitting}
-						className='hover:bg-white/80 transition-colors'
 					>
 						{isEditing ? (
 							<>
@@ -100,8 +95,8 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 					<div className='space-y-2'>
 						<div
 							className={cn(
-								"text-slate-700 leading-relaxed",
-								!initialData.price && "text-slate-400 italic"
+								"text-foreground",
+								!initialData.price && "text-foreground italic"
 							)}
 						>
 							{formatPrice(initialData.price ?? 0)}
@@ -117,7 +112,7 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 								name='price'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className='text-slate-700 font-medium'>
+										<FormLabel className='text-foreground font-medium'>
 											Price
 										</FormLabel>
 										<FormControl>
@@ -127,6 +122,7 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 												type='number'
 												step='0.01'
 												placeholder='Set a price for your course'
+												onChange={(e) => field.onChange(e.target.valueAsNumber)}
 											/>
 										</FormControl>
 										<FormMessage />
@@ -138,10 +134,11 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='bg-blue-600 hover:bg-blue-700'
+									className='text-foreground rounded-none px-6 cursor-pointer'
+									variant='outline'
 								>
 									<Check className='h-4 w-4 mr-2' />
-									Save Changes
+									Save The Price
 								</Button>
 							</div>
 						</form>

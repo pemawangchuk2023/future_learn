@@ -67,7 +67,7 @@ const ChapterIdPage = async ({
 							</Link>
 							<div className='flex items-center justify-between w-full'>
 								<div className='flex flex-col gap-y-2'>
-									<h1 className='text-3xl font-bold text-foreground tracking-tight'>
+									<h1 className='text-xl font-bold text-yellow-500'>
 										Chapter Creation
 									</h1>
 									<div className='flex items-center gap-2'>
@@ -88,7 +88,7 @@ const ChapterIdPage = async ({
 					</div>
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
 						<div className='space-y-6'>
-							<div className='rounded-2xl border  overflow-hidden hover:shadow-lg transition-all duration-300'>
+							<div className='rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300'>
 								<div className='px-6 py-4 '>
 									<div className='flex items-center gap-x-3'>
 										<div className='p-2 '>
@@ -113,25 +113,13 @@ const ChapterIdPage = async ({
 								</div>
 							</div>
 						</div>
-						<div className='space-y-6'>
-							<div className='overflow-hidden'>
-								<div className='px-6 py-4'>
-									<div className='flex items-center gap-x-3'>
-										<div className='p-2  rounded-xl shadow-sm'>
-											<SettingsIcon className='h-5 w-5 text-emerald-600' />
-										</div>
-										<h2 className='text-lg font-semibold text-foreground'>
-											Access Settings
-										</h2>
-									</div>
-								</div>
-								<div className='p-6'>
-									<ChapterAccessForm
-										initialData={chapter}
-										courseId={courseId}
-										chapterId={chapterId}
-									/>
-								</div>
+						<div className='space-y-2'>
+							<div className='p-2'>
+								<ChapterAccessForm
+									initialData={chapter}
+									courseId={courseId}
+									chapterId={chapterId}
+								/>
 							</div>
 							{/* Video Part */}
 							<div className='flex items-center gap-x-2'>

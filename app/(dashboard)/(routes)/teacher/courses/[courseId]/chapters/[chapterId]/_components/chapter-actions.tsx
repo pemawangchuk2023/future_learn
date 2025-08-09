@@ -70,7 +70,12 @@ const ChapterActions = ({
 			</Button>
 
 			<ConfirmModal onConfirm={onDelete}>
-				<Button size='sm' disabled={isLoading}>
+				<Button
+					size='sm'
+					disabled={isLoading}
+					variant='destructive'
+					className='cursor-pointer'
+				>
 					<Trash2Icon className='h-4 w-4' />
 				</Button>
 			</ConfirmModal>

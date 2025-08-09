@@ -15,7 +15,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { PencilIcon, FileText, Check, X } from "lucide-react";
+import { PencilIcon, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Course } from "@/lib/generated/prisma";
 import Combobox from "@/components/ui/combobox";
@@ -52,11 +52,11 @@ const CategoryForm = ({
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await axios.patch(`/api/courses/${courseId}`, values);
-			toast("The description has been updated successfully");
+			toast("The category has been updated successfully");
 			toggleEdit();
 			router.refresh();
 		} catch {
-			toast("Something went wrong while updating the description of a course.");
+			toast("Something went wrong while updating the category of a course.");
 		}
 	};
 
@@ -70,16 +70,10 @@ const CategoryForm = ({
 			<div className='px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='p-2'>
-							<FileText className='h-4 w-4 text-foreground' />
-						</div>
 						<div>
-							<h3 className='font-semibold text-foreground'>
-								Category Description
+							<h3 className='font-extrabold text-xl text-yellow-500'>
+								4. Select the Category Type
 							</h3>
-							<p className='text-sm text-foreground'>
-								Describe what students will learn
-							</p>
 						</div>
 					</div>
 					<Button
@@ -109,18 +103,13 @@ const CategoryForm = ({
 					<div className='space-y-2'>
 						<div
 							className={cn(
-								"text-foreground leading-relaxed",
+								"text-foreground font-extrabold underline",
 								!initialData.categoryId && "text-foreground italic"
 							)}
 						>
 							{selectedOption?.label ||
 								"No categoryId provided yet. Click edit to add a compelling description for your course."}
 						</div>
-						{initialData.categoryId && (
-							<p className='text-sm text-foreground'>
-								Click edit to modify your course description
-							</p>
-						)}
 					</div>
 				)}
 
@@ -132,7 +121,7 @@ const CategoryForm = ({
 								name='categoryId'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className='text-foreground font-medium'>
+										<FormLabel className='text-yellow-500 font-medium'>
 											Course Category
 										</FormLabel>
 										<FormControl>
@@ -147,10 +136,11 @@ const CategoryForm = ({
 									type='submit'
 									disabled={!isValid || isSubmitting}
 									size='sm'
-									className='bg-blue-600 hover:bg-blue-700 text-foreground'
+									variant='outline'
+									className='cursor-pointer rounded-none border-2 border-amber-200'
 								>
 									<Check className='h-4 w-4 mr-2' />
-									Save Changes
+									Save The Category
 								</Button>
 							</div>
 						</form>
